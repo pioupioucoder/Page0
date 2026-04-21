@@ -3,312 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings</title>
+<title>Settings — Page 0</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@300;400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
 
 <style>
-body {
-  margin:0;
-  font-family:'Rajdhani',sans-serif;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: radial-gradient(circle at top, #1a0b0b, #0a0608);
-  color:#ffe6e6;
-  overflow:hidden;
-}
+  @keyframes subtleDrift {
+    0%,100% { transform:scale(1.05) translate(0,0); }
+    25%      { transform:scale(1.07) translate(-5px,-3px); }
+    50%      { transform:scale(1.05) translate(3px,-5px); }
+    75%      { transform:scale(1.07) translate(-3px,2px); }
+  }
+  @keyframes noiseShift {
+    0%   { background-position:0 0; }
+    100% { background-position:100% 100%; }
+  }
+  @keyframes scanline {
+    0%   { top:-10%; }
+    100% { top:110%; }
+  }
+  @keyframes flicker {
+    0%,95%,100% { opacity:1; }
+    96% { opacity:0.4; }
+    97% { opacity:1; }
+    98% { opacity:0.7; }
+  }
+  @keyframes glitchText {
+    0%,100% { transform:translate(0); opacity:1; }
+    10% { transform:translate(-3px,2px); opacity:0.8; }
+    20% { transform:translate(3px,-1px); opacity:1; }
+    40% { transform:translate(-2px,-2px); opacity:0.9; }
+    50% { transform:translate(2px,1px); opacity:1; }
+    60% { transform:translate(0); }
+  }
+  @keyframes glitchLayer1 {
+    0%,100% { clip-path:inset(0 0 100% 0); }
+    5%  { clip-path:inset(20% 0 60% 0); transform:translate(-4px,0); }
+    10% { clip-path:inset(50% 0 30% 0); transform:translate(4px,0); }
+    15% { clip-path:inset(0 0 100% 0); transform:translate(0); }
+  }
+  @keyframes glitchLayer2 {
+    0%,100% { clip-path:inset(0 0 100% 0); }
+    8%  { clip-path:inset(70% 0 10% 0); transform:translate(5px,0); }
+    12% { clip-path:inset(10% 0 70% 0); transform:translate(-3px,0); }
+    16% { clip-path:inset(0 0 100% 0); transform:translate(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%,100% { box-shadow:0 0 8px rgba(200,50,50,0.25), inset 0 0 8px rgba(200,50,50,0.08); }
+    50%      { box-shadow:0 0 22px rgba(200,50,50,0.45), inset 0 0 14px rgba(200,50,50,0.15); }
+  }
+  @keyframes floatIcon {
+    0%,100% { transform:translateY(0) rotate(0deg); opacity:0.07; }
+    33%      { transform:translateY(-10px) rotate(2deg); opacity:0.1; }
+    66%      { transform:translateY(-5px) rotate(-1deg); opacity:0.08; }
+  }
+  @keyframes floatIcon2 {
+    0%,100% { transform:translateY(0) rotate(0deg); opacity:0.06; }
+    50%      { transform:translateY(-14px) rotate(-2deg); opacity:0.09; }
+  }
 
-/* GLITCH BACKGROUND */
-.bg::before {
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,80,80,0.15), transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255,120,120,0.08), transparent 60%);
-  animation: float 6s infinite ease-in-out;
-}
+  * { box-sizing:border-box; margin:0; padding:0; }
 
-@keyframes float {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-10px); }
-}
+  body {
+    min-height:100vh;
+    background:#0a0608;
+    color:#e8d5c4;
+    font-family:'Rajdhani',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
 
-/* PANEL */
-.panel {
-  width:420px;
-  background: rgba(30,10,10,0.75);
-  border:1px solid rgba(255,100,100,0.25);
-  border-radius:18px;
-  padding:22px;
-  backdrop-filter: blur(10px);
-  box-shadow:0 0 40px rgba(255,0,0,0.08);
-  position:relative;
-}
+  #wallpaper {
+    position:fixed; inset:0; z-index:0;
+    width:100%; height:100%; object-fit:cover;
+    filter:brightness(0.6) contrast(1.05) saturate(0.8);
+    animation:subtleDrift 20s ease-in-out infinite;
+  }
+  .overlay-grad {
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg,rgba(10,6,8,0.35) 0%,rgba(10,6,8,0.1) 40%,rgba(10,6,8,0.2) 70%,rgba(10,6,8,0.7) 100%);
+  }
+  .overlay-radial {
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at center 30%, transparent 40%, rgba(10,6,8,0.3) 100%);
+  }
+  .noise {
+    position:fixed; inset:0; z-index:2; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    animation:noiseShift 0.5s steps(10) infinite;
+  }
+  .vignette {
+    position:fixed; inset:0; z-index:3; pointer-events:none;
+    box-shadow:inset 0 0 130px 55px rgba(0,0,0,0.55);
+  }
+  .scanline::after {
+    content:''; position:fixed; z-index:100;
+    left:0; width:100%; height:4px;
+    background:rgba(255,255,255,0.04);
+    animation:scanline 3s linear infinite;
+    pointer-events:none;
+  }
 
-/* subtle glitch title */
-.title {
-  text-align:center;
-  font-size:18px;
-  letter-spacing:5px;
-  position:relative;
-}
+  .deco-layer { position:fixed; inset:0; z-index:4; pointer-events:none; }
+  .deco-icon  { position:absolute; color:#e8d5c4; }
+  .d1 { top:10%;    left:2%;   animation:floatIcon  9s ease-in-out infinite; }
+  .d2 { top:55%;    left:1.5%; animation:floatIcon2 7s ease-in-out infinite; animation-delay:1s; }
+  .d3 { top:15%;    right:2%;  animation:floatIcon  11s ease-in-out infinite; animation-delay:2s; }
+  .d4 { top:60%;    right:2%;  animation:floatIcon2 8s ease-in-out infinite; animation-delay:0.5s; }
+  .d5 { bottom:10%; left:3%;   animation:floatIcon  12s ease-in-out infinite; animation-delay:3s; }
+  .d6 { bottom:8%;  right:3%;  animation:floatIcon2 10s ease-in-out infinite; animation-delay:1.5s; }
 
-.title::before,
-.title::after {
-  content:"SETTINGS";
-  position:absolute;
-  left:0;
-  width:100%;
-  opacity:0.2;
-}
+  /* ── HEADER ── */
+  header {
+    position:relative; z-index:10; width:100%;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 40px 18px;
+    border-bottom:1px solid rgba(139,58,58,0.2);
+  }
+  .back-btn {
+    display:flex; align-items:center; gap:8px;
+    color:#e8d5c4;
+    background:rgba(60,15,15,0.25);
+    border:1px solid rgba(180,60,60,0.3);
+    border-radius:8px; cursor:pointer;
+    font-family:'Rajdhani',sans-serif;
+    font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    padding:7px 14px; backdrop-filter:blur(8px);
+    transition:all 0.25s ease;
+    animation:pulseGlow 4s ease-in-out infinite;
+  }
+  .back-btn:hover {
+    background:rgba(120,20,20,0.5);
+    border-color:rgba(220,80,80,0.6);
+    transform:translateX(-3px);
+  }
+  .header-center { flex:1; text-align:center; }
+  .title-glitch {
+    position:relative; display:inline-block;
+    font-family:'Cinzel Decorative',serif;
+    font-size:clamp(1.2rem,3.5vw,2rem);
+    color:#e8d5c4; letter-spacing:0.12em;
+    text-shadow:0 0 30px rgba(180,60,40,0.4), 0 2px 10px rgba(0,0,0,0.8);
+    animation:glitchText 6s infinite;
+  }
+  .title-glitch::before,.title-glitch::after {
+    content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
+  }
+  .title-glitch::before { color:#ff003c; animation:glitchLayer1 5s infinite; z-index:-1; }
+  .title-glitch::after  { color:#00e5ff; animation:glitchLayer2 5s infinite; z-index:-1; }
+  .header-sub {
+    font-family:'Special Elite',cursive;
+    font-size:clamp(0.8rem,2vw,1.1rem);
+    color:#c8524a; letter-spacing:0.45em; text-transform:uppercase;
+    margin-top:5px;
+    text-shadow:0 0 20px rgba(200,50,50,0.5);
+    animation:flicker 5s infinite;
+  }
+  .header-spacer { width:90px; }
 
-.title::before {
-  color:#ff3b3b;
-  animation: glitch1 2.5s infinite;
-}
+  /* ── PANEL ── */
+  .panel-wrap {
+    position:relative; z-index:10;
+    width:min(480px,92vw);
+    padding:32px 36px 36px;
+    margin:32px 0 48px;
+    background:rgba(10,6,8,0.65);
+    border:1px solid rgba(139,58,58,0.28);
+    border-radius:14px;
+    backdrop-filter:blur(14px);
+    animation:fadeSlideUp 0.6s ease both;
+    display:flex; flex-direction:column; gap:26px;
+  }
 
-.title::after {
-  color:#ff9a9a;
-  animation: glitch2 2.5s infinite;
-}
+  .section-label {
+    display:flex; align-items:center; gap:9px;
+    margin-bottom:14px;
+  }
+  .section-label-icon {
+    width:24px; height:24px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(200,82,74,0.35);
+    border-radius:4px;
+    background:rgba(200,82,74,0.08);
+  }
+  .section-label-text {
+    font-size:10px; letter-spacing:3px; text-transform:uppercase;
+    color:#c8524a;
+  }
 
-@keyframes glitch1 {
-  0%,100% { transform:translate(0); }
-  20% { transform:translate(-2px,1px); }
-  40% { transform:translate(2px,-1px); }
-}
+  .inner-divider {
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(139,58,58,0.4), transparent);
+  }
 
-@keyframes glitch2 {
-  0%,100% { transform:translate(0); }
-  25% { transform:translate(2px,0); }
-  50% { transform:translate(-2px,1px); }
-}
+  /* ── VOLUME ── */
+  .volume-block {
+    background:rgba(200,82,74,0.04);
+    border:1px solid rgba(139,58,58,0.2);
+    border-radius:10px;
+    padding:18px 18px 14px;
+  }
+  .volume-top {
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:16px;
+  }
+  .knob-wrap {
+    position:relative;
+    width:64px; height:64px; flex-shrink:0;
+  }
+  .knob-svg { width:64px; height:64px; }
+  .knob-bg  { fill:none; stroke:rgba(200,82,74,0.12); stroke-width:4; }
+  .knob-track { fill:none; stroke:#c8524a; stroke-width:4; stroke-linecap:round; transition:stroke-dasharray 0.1s; }
+  .knob-muted .knob-track { stroke:rgba(200,82,74,0.18); }
+  .knob-center {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    pointer-events:none;
+  }
+  .knob-pct { font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:700; letter-spacing:1px; color:#e8d5c4; line-height:1; }
+  .knob-pct-label { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:#c8524a; opacity:0.65; }
 
-/* BACK */
-.back {
-  position:absolute;
-  top:14px;
-  left:14px;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  opacity:0.7;
-  transition:0.2s;
-}
+  .volume-info { flex:1; }
+  .volume-info-title { font-family:'Special Elite',cursive; font-size:14px; color:#e8d5c4; margin-bottom:3px; }
+  .volume-info-sub   { font-size:11px; letter-spacing:1px; color:rgba(232,213,196,0.55); line-height:1.5; }
 
-.back:hover {
-  opacity:1;
-  transform:translateX(-3px);
-}
+  .vol-slider-wrap { display:flex; align-items:center; gap:10px; }
+  .vol-icon { color:#c8524a; opacity:0.5; flex-shrink:0; }
 
-/* BLOCKS */
-.block {
-  margin-top:18px;
-  padding:14px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.03);
-  border:1px solid rgba(255,80,80,0.12);
-}
+  input[type="range"].vol-slider {
+    -webkit-appearance:none; appearance:none;
+    flex:1; height:3px; background:rgba(200,82,74,0.15);
+    border-radius:2px; outline:none; cursor:pointer;
+  }
+  input[type="range"].vol-slider::-webkit-slider-thumb {
+    -webkit-appearance:none;
+    width:14px; height:14px; border-radius:50%;
+    background:#c8524a;
+    border:2px solid rgba(232,213,196,0.35);
+    box-shadow:0 0 6px rgba(200,82,74,0.4);
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  input[type="range"].vol-slider::-webkit-slider-thumb:hover {
+    transform:scale(1.25);
+    box-shadow:0 0 14px rgba(200,82,74,0.7);
+  }
+  input[type="range"].vol-slider::-moz-range-thumb {
+    width:14px; height:14px; border-radius:50%;
+    background:#c8524a; border:2px solid rgba(232,213,196,0.35); cursor:pointer;
+  }
 
-/* AUDIO */
-.audio {
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+  .mute-toggle {
+    display:flex; align-items:center; gap:10px;
+    cursor:pointer; padding:6px 10px;
+    border:1px solid transparent; border-radius:7px;
+    transition:all 0.2s; width:fit-content; margin-top:12px;
+  }
+  .mute-toggle:hover { border-color:rgba(180,60,60,0.3); background:rgba(60,15,15,0.3); }
+  .mute-icon-wrap {
+    width:30px; height:30px;
+    border:1px solid rgba(200,82,74,0.35); border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(200,82,74,0.08);
+    transition:background 0.2s, border-color 0.2s;
+  }
+  .mute-toggle.is-muted .mute-icon-wrap { background:rgba(80,20,20,0.4); border-color:rgba(200,82,74,0.5); }
+  .mute-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(232,213,196,0.6); }
+  .mute-toggle.is-muted .mute-label { color:rgba(200,130,130,0.7); }
 
-.iconBtn {
-  width:42px;
-  height:42px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border-radius:12px;
-  background: rgba(255,80,80,0.15);
-  border:1px solid rgba(255,100,100,0.2);
-  cursor:pointer;
-  transition:0.2s;
-}
+  /* ── BUTTONS ── */
+  .save-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
-.iconBtn:hover {
-  transform:scale(1.1);
-  background: rgba(255,80,80,0.25);
-}
+  .action-btn {
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:11px 16px;
+    background:rgba(60,15,15,0.25);
+    border:1px solid rgba(180,60,60,0.3);
+    border-radius:9px; cursor:pointer;
+    color:#e8d5c4;
+    font-family:'Rajdhani',sans-serif;
+    font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    backdrop-filter:blur(8px);
+    transition:all 0.25s ease;
+    animation:pulseGlow 4s ease-in-out infinite;
+  }
+  .action-btn:hover {
+    background:rgba(120,20,20,0.5);
+    border-color:rgba(220,80,80,0.6);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.45);
+  }
+  .action-btn:active { transform:translateY(0); }
+  .action-btn.danger {
+    grid-column:1/-1;
+    background:rgba(80,15,15,0.25);
+    border-color:rgba(180,60,60,0.35);
+    color:rgba(232,180,170,0.8);
+  }
+  .action-btn.danger:hover {
+    background:rgba(160,25,25,0.4);
+    border-color:rgba(220,80,80,0.65);
+    color:#e8d5c4;
+  }
 
-input[type="range"] {
-  flex:1;
-}
+  /* ── TOAST ── */
+  .toast {
+    position:fixed; bottom:28px; left:50%;
+    transform:translateX(-50%) translateY(60px);
+    background:rgba(10,6,8,0.95);
+    border:1px solid rgba(200,82,74,0.45);
+    border-radius:8px; padding:10px 20px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    color:#e8d5c4; z-index:9999;
+    transition:transform 0.35s ease, opacity 0.35s ease;
+    opacity:0; pointer-events:none; backdrop-filter:blur(10px); white-space:nowrap;
+  }
+  .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
-/* BUTTONS */
-button {
-  width:100%;
-  margin-top:10px;
-  padding:10px;
-  border-radius:12px;
-  border:none;
-  cursor:pointer;
-  background: rgba(255,80,80,0.15);
-  color:#ffe6e6;
-  transition:0.2s;
-}
-
-button:hover {
-  background: rgba(255,80,80,0.3);
-  transform:scale(1.02);
-}
-
-.danger {
-  background: rgba(255,50,50,0.25);
-}
-
-.danger:hover {
-  background: rgba(255,50,50,0.4);
-}
+  @media (max-width:500px) {
+    header { padding:16px 16px 12px; }
+    .header-spacer { display:none; }
+    .panel-wrap { padding:22px 18px 26px; }
+    .save-grid { grid-template-columns:1fr; }
+    .action-btn.danger { grid-column:1; }
+  }
 </style>
 </head>
+<body class="scanline">
 
-<body>
+<img id="wallpaper" src="images/backgrounds/settings.jpg" alt=""
+  onerror="this.style.display='none';">
 
-<div class="bg"></div>
+<div class="overlay-grad"></div>
+<div class="overlay-radial"></div>
+<div class="noise"></div>
+<div class="vignette"></div>
 
-<div class="panel">
-
-<!-- BACK -->
-<div class="back" onclick="goBack()">
-  <i data-lucide="arrow-left"></i>
-  <span>Back</span>
+<div class="deco-layer">
+  <div class="deco-icon d1"><i data-lucide="settings"  style="width:44px;height:44px;"></i></div>
+  <div class="deco-icon d2"><i data-lucide="sliders"   style="width:38px;height:38px;"></i></div>
+  <div class="deco-icon d3"><i data-lucide="music"     style="width:40px;height:40px;"></i></div>
+  <div class="deco-icon d4"><i data-lucide="save"      style="width:36px;height:36px;"></i></div>
+  <div class="deco-icon d5"><i data-lucide="volume-2"  style="width:34px;height:34px;"></i></div>
+  <div class="deco-icon d6"><i data-lucide="feather"   style="width:36px;height:36px;"></i></div>
 </div>
 
-<div class="title">SETTINGS</div>
-
-<!-- AUDIO -->
-<div class="block">
-  <div class="audio">
-
-    <div class="iconBtn" id="muteBtn">
-      <i data-lucide="volume-2" id="icon"></i>
-    </div>
-
-    <input id="volume" type="range" min="0" max="100">
+<header>
+  <button class="back-btn" onclick="goBack()">
+    <i data-lucide="arrow-left" style="width:15px;height:15px;"></i>
+    Menu
+  </button>
+  <div class="header-center">
+    <div class="title-glitch" data-text="Page 0">Page 0</div>
+    <div class="header-sub">Settings</div>
   </div>
+  <div class="header-spacer"></div>
+</header>
+
+<div class="panel-wrap">
+
+  <!-- AUDIO -->
+  <div>
+    <div class="section-label">
+      <div class="section-label-icon"><i data-lucide="music" style="width:12px;height:12px;color:#c8524a;"></i></div>
+      <span class="section-label-text">Audio</span>
+    </div>
+    <div class="volume-block">
+      <div class="volume-top">
+        <div class="knob-wrap" id="knobWrap">
+          <svg class="knob-svg" viewBox="0 0 64 64">
+            <circle class="knob-bg" cx="32" cy="32" r="26"
+              stroke-dasharray="163 1000" stroke-dashoffset="-46"
+              transform="rotate(150 32 32)"/>
+            <circle class="knob-track" id="knobTrack" cx="32" cy="32" r="26"
+              stroke-dasharray="0 163" stroke-dashoffset="-46"
+              transform="rotate(150 32 32)"/>
+          </svg>
+          <div class="knob-center">
+            <span class="knob-pct" id="knobPct">50</span>
+            <span class="knob-pct-label">vol</span>
+          </div>
+        </div>
+        <div class="volume-info">
+          <div class="volume-info-title">Master Volume</div>
+          <div class="volume-info-sub" id="volSubText">Controls all music across the game.</div>
+        </div>
+      </div>
+      <div class="vol-slider-wrap">
+        <i data-lucide="volume"   class="vol-icon" style="width:14px;height:14px;"></i>
+        <input type="range" class="vol-slider" id="volSlider" min="0" max="100" step="1" value="50">
+        <i data-lucide="volume-2" class="vol-icon" style="width:14px;height:14px;"></i>
+      </div>
+      <div style="margin-top:12px;height:1px;background:rgba(139,58,58,0.15);"></div>
+      <div class="mute-toggle" id="muteToggle">
+        <div class="mute-icon-wrap">
+          <i id="muteIcon" data-lucide="volume-2" style="width:13px;height:13px;color:#c8524a;"></i>
+        </div>
+        <span class="mute-label" id="muteLabel">Sound On</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-divider"></div>
+
+  <!-- SAVE -->
+  <div>
+    <div class="section-label">
+      <div class="section-label-icon"><i data-lucide="save" style="width:12px;height:12px;color:#c8524a;"></i></div>
+      <span class="section-label-text">Save Data</span>
+    </div>
+    <div class="save-grid">
+      <button class="action-btn" onclick="exportSave()">
+        <i data-lucide="download" style="width:14px;height:14px;color:#c8524a;"></i>
+        Export Save
+      </button>
+      <button class="action-btn" onclick="importSave()">
+        <i data-lucide="upload" style="width:14px;height:14px;color:#c8524a;"></i>
+        Import Save
+      </button>
+      <button class="action-btn danger" onclick="resetAll()">
+        <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
+        Reset All Game Data
+      </button>
+    </div>
+  </div>
+
 </div>
 
-<!-- SAVE -->
-<div class="block">
-  <button onclick="exportSave()">Export Save</button>
-  <button onclick="importSave()">Import Save</button>
-</div>
-
-<!-- RESET -->
-<div class="block">
-  <button class="danger" onclick="resetAll()">Reset Game Data</button>
-</div>
-
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
 lucide.createIcons();
 
-/* ================= AUDIO ================= */
-const music = new Audio("music/menu.mp3");
-music.loop = true;
+function showToast(msg, duration = 2200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
 
-let volume = parseFloat(localStorage.getItem("volume") ?? 0.5);
-let muted = localStorage.getItem("mute") === "true";
+const VOL_KEY  = "game_volume";
+const MUTE_KEY = "game_mute";
 
-music.volume = volume;
-music.muted = muted;
-music.play().catch(()=>{});
+let volume = parseFloat(localStorage.getItem(VOL_KEY) ?? "0.5");
+let muted  = localStorage.getItem(MUTE_KEY) === "true";
+volume = Math.max(0, Math.min(1, volume));
 
-const slider = document.getElementById("volume");
-const icon = document.getElementById("icon");
+const previewAudio = new Audio("music/menu.mp3");
+previewAudio.loop = true;
+previewAudio.volume = muted ? 0 : volume;
+previewAudio.play().catch(() => {});
 
-slider.value = volume * 100;
+const ARC_LEN = 163;
 
-/* volume */
-slider.oninput = () => {
-  music.volume = slider.value / 100;
-  localStorage.setItem("volume", music.volume);
-};
+function updateKnob() {
+  const filled = muted ? 0 : ARC_LEN * volume;
+  document.getElementById('knobTrack').setAttribute('stroke-dasharray', `${filled} ${ARC_LEN}`);
+  document.getElementById('knobPct').textContent = muted ? '—' : Math.round(volume * 100);
+  document.getElementById('knobWrap').classList.toggle('knob-muted', muted);
+}
 
-/* mute toggle */
-document.getElementById("muteBtn").onclick = () => {
-  music.muted = !music.muted;
-  localStorage.setItem("mute", music.muted);
-  updateIcon();
-};
+const slider = document.getElementById('volSlider');
+slider.value = Math.round(volume * 100);
 
-function updateIcon() {
-  icon.setAttribute(
-    "data-lucide",
-    music.muted ? "volume-x" : "volume-2"
-  );
+function updateSliderFill() {
+  const pct = slider.value;
+  slider.style.background = `linear-gradient(to right, #c8524a ${pct}%, rgba(200,82,74,0.15) ${pct}%)`;
+}
+updateSliderFill();
+
+slider.addEventListener('input', () => {
+  volume = slider.value / 100;
+  applyVolume(); saveVolume(); updateSliderFill();
+});
+
+function updateMuteUI() {
+  const toggle  = document.getElementById('muteToggle');
+  const icon    = document.getElementById('muteIcon');
+  const label   = document.getElementById('muteLabel');
+  const subText = document.getElementById('volSubText');
+  toggle.classList.toggle('is-muted', muted);
+  icon.setAttribute('data-lucide', muted ? 'volume-x' : 'volume-2');
+  label.textContent   = muted ? 'Sound Off' : 'Sound On';
+  subText.textContent = muted ? 'All audio is muted.' : 'Controls all music across the game.';
   lucide.createIcons();
+  updateKnob();
 }
-updateIcon();
 
-/* ================= SAVE ================= */
+document.getElementById('muteToggle').addEventListener('click', () => {
+  muted = !muted;
+  applyVolume(); saveVolume(); updateMuteUI();
+  showToast(muted ? 'Sound muted' : 'Sound on');
+});
+
+function applyVolume() {
+  const eff = muted ? 0 : volume;
+  previewAudio.volume = eff;
+  document.querySelectorAll('audio').forEach(a => { a.volume = eff; });
+  updateKnob();
+}
+
+function saveVolume() {
+  localStorage.setItem(VOL_KEY,  volume.toFixed(3));
+  localStorage.setItem(MUTE_KEY, String(muted));
+}
+
+updateKnob(); updateMuteUI(); updateSliderFill();
+
+// EXPORT — structure-agnostic
 function exportSave() {
-  const data = {};
+  const snapshot = {};
   for (let i = 0; i < localStorage.length; i++) {
-    let k = localStorage.key(i);
-    data[k] = localStorage.getItem(k);
+    const k = localStorage.key(i);
+    const raw = localStorage.getItem(k);
+    try { snapshot[k] = JSON.parse(raw); } catch { snapshot[k] = raw; }
   }
-
-  const blob = new Blob([JSON.stringify(data, null, 2)], {
-    type:"application/json"
-  });
-
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "save.json";
-  a.click();
+  const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type:'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `bsd_page0_save_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('Save exported ✓');
 }
 
-/* simple import */
+// IMPORT — structure-agnostic
 function importSave() {
-  const input = document.createElement("input");
-  input.type = "file";
-
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json,application/json';
   input.onchange = e => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; if (!file) return;
     const reader = new FileReader();
-
     reader.onload = () => {
-      try {
-        const data = JSON.parse(reader.result);
-        Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
-        alert("Imported!");
-      } catch {
-        alert("Invalid file");
-      }
+      let data;
+      try { data = JSON.parse(reader.result); }
+      catch { showToast('Invalid file — not JSON'); return; }
+      if (typeof data !== 'object' || Array.isArray(data)) { showToast('Invalid save format'); return; }
+      Object.entries(data).forEach(([k, v]) => {
+        localStorage.setItem(k, typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v));
+      });
+      const iv = parseFloat(localStorage.getItem(VOL_KEY));
+      const im = localStorage.getItem(MUTE_KEY) === 'true';
+      if (!isNaN(iv)) { volume = Math.max(0, Math.min(1, iv)); slider.value = Math.round(volume * 100); updateSliderFill(); }
+      muted = im;
+      applyVolume(); saveVolume(); updateMuteUI();
+      showToast('Save imported ✓', 2800);
     };
-
+    reader.onerror = () => showToast('Could not read file');
     reader.readAsText(file);
   };
-
-  input.click();
+  document.body.appendChild(input); input.click(); document.body.removeChild(input);
 }
 
-/* RESET */
 function resetAll() {
-  if (!confirm("Reset everything?")) return;
-
-  localStorage.clear();
-  sessionStorage.clear();
-  window.location.href = "index.html";
+  if (!confirm('Reset all game data?\nThis cannot be undone.')) return;
+  localStorage.clear(); sessionStorage.clear();
+  showToast('Data cleared — redirecting…');
+  setTimeout(() => { window.location.href = 'index.html'; }, 1400);
 }
 
-/* BACK */
-function goBack() {
-  window.location.href = "index.html";
-}
+function goBack() { window.location.href = 'index.html'; }
 </script>
-
 </body>
 </html>
