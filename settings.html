@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
 
 <style>
+  /* === VOS STYLES (inchangés) === */
   @keyframes subtleDrift {
     0%,100% { transform:scale(1.05) translate(0,0); }
     25%      { transform:scale(1.07) translate(-5px,-3px); }
@@ -450,75 +451,125 @@ function showToast(msg, duration = 2200) {
   setTimeout(() => t.classList.remove('show'), duration);
 }
 
-const VOL_KEY  = "game_volume";
+// ============================================================
+// 1. SYSTÈME DE VOLUME GLOBAL (indépendant)
+// ============================================================
+const VOL_KEY = "game_volume";
 const MUTE_KEY = "game_mute";
 
-let volume = parseFloat(localStorage.getItem(VOL_KEY) ?? "0.5");
-let muted  = localStorage.getItem(MUTE_KEY) === "true";
-volume = Math.max(0, Math.min(1, volume));
+let globalVolume = parseFloat(localStorage.getItem(VOL_KEY) ?? "0.5");
+let globalMuted = localStorage.getItem(MUTE_KEY) === "true";
+globalVolume = Math.max(0, Math.min(1, globalVolume));
 
-const previewAudio = new Audio("music/menu.mp3");
-previewAudio.loop = true;
-previewAudio.volume = muted ? 0 : volume;
-previewAudio.play().catch(() => {});
-
-const ARC_LEN = 163;
-
-function updateKnob() {
-  const filled = muted ? 0 : ARC_LEN * volume;
-  document.getElementById('knobTrack').setAttribute('stroke-dasharray', `${filled} ${ARC_LEN}`);
-  document.getElementById('knobPct').textContent = muted ? '—' : Math.round(volume * 100);
-  document.getElementById('knobWrap').classList.toggle('knob-muted', muted);
+function applyVolumeToAll() {
+  const effectiveVolume = globalMuted ? 0 : globalVolume;
+  document.querySelectorAll('audio').forEach(audio => {
+    audio.volume = effectiveVolume;
+  });
 }
 
-const slider = document.getElementById('volSlider');
-slider.value = Math.round(volume * 100);
+function setVolumeAndSave(vol) {
+  globalVolume = Math.max(0, Math.min(1, vol));
+  localStorage.setItem(VOL_KEY, globalVolume.toFixed(3));
+  applyVolumeToAll();
+}
 
-function updateSliderFill() {
+function setMuteAndSave(mute) {
+  globalMuted = mute;
+  localStorage.setItem(MUTE_KEY, String(globalMuted));
+  applyVolumeToAll();
+}
+
+// Interface du volume
+const ARC_LEN = 163;
+const slider = document.getElementById('volSlider');
+let isUpdatingUI = false;
+
+function updateVolumeUI() {
+  if (isUpdatingUI) return;
+  isUpdatingUI = true;
+  const filled = globalMuted ? 0 : ARC_LEN * globalVolume;
+  document.getElementById('knobTrack').setAttribute('stroke-dasharray', `${filled} ${ARC_LEN}`);
+  document.getElementById('knobPct').textContent = globalMuted ? '—' : Math.round(globalVolume * 100);
+  document.getElementById('knobWrap').classList.toggle('knob-muted', globalMuted);
+  slider.value = Math.round(globalVolume * 100);
   const pct = slider.value;
   slider.style.background = `linear-gradient(to right, #c8524a ${pct}%, rgba(200,82,74,0.15) ${pct}%)`;
+  
+  const toggle = document.getElementById('muteToggle');
+  const icon = document.getElementById('muteIcon');
+  const label = document.getElementById('muteLabel');
+  const subText = document.getElementById('volSubText');
+  toggle.classList.toggle('is-muted', globalMuted);
+  icon.setAttribute('data-lucide', globalMuted ? 'volume-x' : 'volume-2');
+  label.textContent = globalMuted ? 'Sound Off' : 'Sound On';
+  subText.textContent = globalMuted ? 'All audio is muted.' : 'Controls all music across the game.';
+  lucide.createIcons();
+  isUpdatingUI = false;
 }
-updateSliderFill();
 
 slider.addEventListener('input', () => {
-  volume = slider.value / 100;
-  applyVolume(); saveVolume(); updateSliderFill();
+  setVolumeAndSave(slider.value / 100);
+  updateVolumeUI();
 });
-
-function updateMuteUI() {
-  const toggle  = document.getElementById('muteToggle');
-  const icon    = document.getElementById('muteIcon');
-  const label   = document.getElementById('muteLabel');
-  const subText = document.getElementById('volSubText');
-  toggle.classList.toggle('is-muted', muted);
-  icon.setAttribute('data-lucide', muted ? 'volume-x' : 'volume-2');
-  label.textContent   = muted ? 'Sound Off' : 'Sound On';
-  subText.textContent = muted ? 'All audio is muted.' : 'Controls all music across the game.';
-  lucide.createIcons();
-  updateKnob();
-}
 
 document.getElementById('muteToggle').addEventListener('click', () => {
-  muted = !muted;
-  applyVolume(); saveVolume(); updateMuteUI();
-  showToast(muted ? 'Sound muted' : 'Sound on');
+  setMuteAndSave(!globalMuted);
+  updateVolumeUI();
+  showToast(globalMuted ? 'Sound muted' : 'Sound on');
 });
 
-function applyVolume() {
-  const eff = muted ? 0 : volume;
-  previewAudio.volume = eff;
-  document.querySelectorAll('audio').forEach(a => { a.volume = eff; });
-  updateKnob();
+// Preview audio (musique du menu)
+const previewAudio = new Audio("music/menu.mp3");
+previewAudio.loop = true;
+previewAudio.volume = globalMuted ? 0 : globalVolume;
+previewAudio.play().catch(() => {});
+
+applyVolumeToAll();
+updateVolumeUI();
+
+// ============================================================
+// 2. SYSTÈME DE SAUVEGARDE DU JEU (otome_save_v1)
+// ============================================================
+const SAVE_KEY = "otome_save_v1";
+
+function getDefaultSave() {
+  return {
+    playerSeenIntro: false,
+    unlockedChapters: [1],
+    currentChapter: 1,
+    currentScene: 0
+  };
 }
 
-function saveVolume() {
-  localStorage.setItem(VOL_KEY,  volume.toFixed(3));
-  localStorage.setItem(MUTE_KEY, String(muted));
+function loadGameSave() {
+  const data = localStorage.getItem(SAVE_KEY);
+  if (!data) return getDefaultSave();
+  try {
+    return JSON.parse(data);
+  } catch (e) {
+    localStorage.removeItem(SAVE_KEY);
+    return getDefaultSave();
+  }
 }
 
-updateKnob(); updateMuteUI(); updateSliderFill();
+function saveGame(data) {
+  localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+}
 
-// EXPORT — structure-agnostic
+function updateProgress(chapter, scene) {
+  let save = loadGameSave();
+  save.currentChapter = chapter;
+  save.currentScene = scene;
+  if (!save.unlockedChapters.includes(chapter)) {
+    save.unlockedChapters.push(chapter);
+  }
+  saveGame(save);
+}
+
+// ============================================================
+// 3. EXPORT / IMPORT (tout le localStorage)
+// ============================================================
 function exportSave() {
   const snapshot = {};
   for (let i = 0; i < localStorage.length; i++) {
@@ -527,8 +578,8 @@ function exportSave() {
     try { snapshot[k] = JSON.parse(raw); } catch { snapshot[k] = raw; }
   }
   const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type:'application/json' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
   a.href = url;
   a.download = `bsd_page0_save_${new Date().toISOString().slice(0,10)}.json`;
   document.body.appendChild(a); a.click();
@@ -536,7 +587,6 @@ function exportSave() {
   showToast('Save exported ✓');
 }
 
-// IMPORT — structure-agnostic
 function importSave() {
   const input = document.createElement('input');
   input.type = 'file'; input.accept = '.json,application/json';
@@ -551,11 +601,14 @@ function importSave() {
       Object.entries(data).forEach(([k, v]) => {
         localStorage.setItem(k, typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v));
       });
-      const iv = parseFloat(localStorage.getItem(VOL_KEY));
-      const im = localStorage.getItem(MUTE_KEY) === 'true';
-      if (!isNaN(iv)) { volume = Math.max(0, Math.min(1, iv)); slider.value = Math.round(volume * 100); updateSliderFill(); }
-      muted = im;
-      applyVolume(); saveVolume(); updateMuteUI();
+      // Recharger les paramètres audio depuis localStorage
+      const newVol = parseFloat(localStorage.getItem(VOL_KEY));
+      const newMute = localStorage.getItem(MUTE_KEY) === 'true';
+      if (!isNaN(newVol)) { globalVolume = Math.max(0, Math.min(1, newVol)); setVolumeAndSave(globalVolume); }
+      globalMuted = newMute;
+      setMuteAndSave(globalMuted);
+      updateVolumeUI();
+      applyVolumeToAll();
       showToast('Save imported ✓', 2800);
     };
     reader.onerror = () => showToast('Could not read file');
@@ -566,12 +619,16 @@ function importSave() {
 
 function resetAll() {
   if (!confirm('Reset all game data?\nThis cannot be undone.')) return;
-  localStorage.clear(); sessionStorage.clear();
+  localStorage.clear();
+  sessionStorage.clear();
   showToast('Data cleared — redirecting…');
   setTimeout(() => { window.location.href = 'index.html'; }, 1400);
 }
 
 function goBack() { window.location.href = 'index.html'; }
+
+// Appliquer le volume à tous les audio après chaque changement de page
+document.addEventListener('DOMContentLoaded', applyVolumeToAll);
 </script>
 </body>
 </html>

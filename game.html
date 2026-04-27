@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le Livre de la Fin</title>
+<script src="js/global.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@300;400;600;700&family=Special+Elite&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
 /* === STYLES (identiques à votre version) === */
@@ -335,6 +336,7 @@ function setGameVar(key, value) {
 function getGameVar(key, defaultValue = null) {
   return gameVars.hasOwnProperty(key) ? gameVars[key] : defaultValue;
 }
+
 /* === SAUVEGARDE === */
 const SAVE_KEY = "otome_save_v2";
 function defaultSave() { return { unlockedChapters: [1], currentChapter: 1, currentSceneId: null, affection: {} }; }
@@ -363,21 +365,37 @@ let isTyping = false, typeTimer = null;
 let autoMode = false, autoTimer = null;
 let pendingLeave = null, introSkip = false;
 
-/* === AUDIO === */
+/* === AUDIO - Utilise les fonctions globales de js/global.js === */
 const musicEl = document.getElementById("music");
-function applyVol() {
-  musicEl.volume = parseFloat(localStorage.getItem("volume") ?? 0.5);
-  musicEl.muted = localStorage.getItem("mute") === "true";
-}
-applyVol();
 let lastMusicSrc = "";
+
 function playMusic(src) {
   if (!src) return;
   const p = src.includes("/") ? src : "music/" + src;
   if (lastMusicSrc === p && !musicEl.paused) return;
   lastMusicSrc = p;
-  musicEl.src = p; musicEl.loop = true; applyVol(); musicEl.play().catch(() => {});
+  musicEl.src = p;
+  musicEl.loop = true;
+  // Appliquer le volume global
+  if (typeof setGlobalVolume !== 'undefined') {
+    musicEl.volume = getGlobalMuted() ? 0 : getGlobalVolume();
+  } else {
+    // Fallback si global.js n'est pas chargé
+    const vol = parseFloat(localStorage.getItem("game_volume") ?? "0.5");
+    const mute = localStorage.getItem("game_mute") === "true";
+    musicEl.volume = mute ? 0 : vol;
+  }
+  musicEl.play().catch(() => {});
 }
+
+// Écouter les changements de volume des autres pages
+window.addEventListener('storage', (e) => {
+  if (e.key === 'game_volume' || e.key === 'game_mute') {
+    const vol = parseFloat(localStorage.getItem("game_volume") ?? "0.5");
+    const mute = localStorage.getItem("game_mute") === "true";
+    musicEl.volume = mute ? 0 : vol;
+  }
+});
 
 /* === BACKGROUND === */
 let lastBg = "";
@@ -416,7 +434,6 @@ let liNames = [];
 function initGauges(scenesObj) {
   const found = {};
   (chData.love_interests || []).forEach(name => { found[name] = null; });
-  // Parcourir TOUTES les scènes (objet) pour trouver les affection_target
   for (let sid in scenesObj) {
     const s = scenesObj[sid];
     if (s.choices) {
@@ -526,7 +543,6 @@ function showScene() {
   document.getElementById("choices").innerHTML = "";
   updateBackBtn();
   
-  // Gérer le texte conditionnel
   let displayText = s.text;
   if (s.text_condition) {
     const val = getGameVar(s.text_condition.var);
@@ -556,7 +572,6 @@ function renderChoices(s) {
     const btn = document.createElement("button"); btn.className = "cbtn"; btn.textContent = c.label;
     btn.onclick = () => {
       area.style.display = "none";
-      // Appliquer set_variable si présent
       if (c.set_variable) {
         const [key, val] = c.set_variable.split("=");
         setGameVar(key, val);
@@ -633,7 +648,6 @@ async function loadChapter(n) {
     if (!save.unlockedChapters.includes(n)) save.unlockedChapters.push(n);
     persistSave();
     document.getElementById("top-title").textContent = (chData.title || "").substring(0, 32);
-    //initGauges(chData.scenes || {});
     introSkip = false;
     showIntro(chData);
     const wait = setInterval(() => {
@@ -754,7 +768,6 @@ async function init() {
   currentSceneId = save.currentSceneId && chData.scenes[save.currentSceneId] ? save.currentSceneId : chData.start;
   sceneHistory = [];
   document.getElementById("top-title").textContent = (chData.title || "Le Livre de la Fin").substring(0, 32);
-  //initGauges(chData.scenes || {});
   introSkip = false;
   showIntro(chData);
   const wait = setInterval(() => {
@@ -764,5 +777,6 @@ async function init() {
 
 window.addEventListener("load", init);
 </script>
+
 </body>
 </html>

@@ -71,7 +71,7 @@
       "background": "cafetaria.png",
       "character": "lucy.smile.png",
       "speaker": null,
-      "text": "Lucy sort de la cuisine, un torchon à la main. Elle s'approche de notre table d'un pas pressé, l'air impatient.",
+      "text": "Lucy sort de la cuisine, un plat à la main. Elle s'approche de notre table d'un pas pressé, l'air impatient.",
       "pause": 600,
       "music": "normal.mp3",
       "next": "c1_s08"
@@ -81,7 +81,7 @@
       "background": "cafetaria.png",
       "character": "lucyspeak.png",
       "speaker": "Lucy",
-      "text": "Qu'est-ce que je vous sert ? Dépêchez-vous, j'ai pas que vous à servir.",
+      "text": "Qu'est-ce que je vous sert ? Dépêchez-vous, j'ai pas que ca à faire.",
       "pause": 500,
       "music": "normal.mp3",
       "next": "c1_s09"
@@ -106,12 +106,12 @@
       "music": "normal.mp3",
       "next": "c1_s11"
     },
-    "c1_s11": {
+        "c1_s11": {
       "id": "c1_s11",
       "background": "cafetaria.png",
       "character": "dazaicasual1.png",
       "speaker": "Dazai",
-      "text": "D'ailleurs, Lucy… maintenant que tout est réglé entre toi et Atsushi, pourquoi tu restes encore ici ?",
+      "text": "Au fait, Lucy… Maintenant que tu as fait la paix avec Atsushi, qu'est-ce qui te retient ici ?",
       "pause": 600,
       "music": "normal.mp3",
       "next": "c1_s13"
@@ -121,7 +121,7 @@
       "background": "cafetaria.png",
       "character": "lucyspeak.png",
       "speaker": "Lucy",
-      "text": "Euh… parce que j'ai nulle part où aller, voilà. Ça te va ?",
+      "text": "C'est compliqué… Disons que je n'ai pas vraiment d'autre endroit où aller.",
       "pause": 500,
       "music": "normal.mp3",
       "next": "c1_s14"
@@ -131,7 +131,7 @@
       "background": "cafetaria.png",
       "character": "dazaicasual1.png",
       "speaker": "Dazai",
-      "text": "Avoue que tu restes surtout pour voir Atsushi tous les jours.",
+      "text": "Rien à voir avec le fait qu'Atsushi est là, tous les jours ?",
       "pause": 500,
       "music": "normal.mp3",
       "next": "c1_s15"
@@ -141,7 +141,7 @@
       "background": "cafetaria.png",
       "character": "lucyflush.png",
       "speaker": "Lucy",
-      "text": "Même pas en rêve !",
+      "text": "P… Pas du tout !",
       "pause": 400,
       "music": "normal.mp3",
       "next": "c1_s16"
@@ -151,7 +151,7 @@
       "background": "cafetaria.png",
       "character": null,
       "speaker": null,
-      "text": "Elle tourne les talons et disparaît dans la cuisine en claquant la porte derrière elle.",
+      "text": "Elle s'éloigne rapidement et disparaît dans la cuisine, la porte grinçant légèrement.",
       "pause": 500,
       "music": "normal.mp3",
       "next": "c1_s17"
@@ -339,301 +339,319 @@
     "c1_s28": {
       "id": "c1_s28",
       "background": "salleprincipale.png",
-      "character": null,
+      "character": "ranposerious.png",
       "speaker": null,
       "text": "Salle de réunion. Ranpo est déjà allongé sur le canapé, un sachet de chips à la main, les yeux fermés. Il n'a pas ouvert le paquet – signe que la situation est sérieuse.",
       "pause": 700,
-      "music": "briefing_theme.mp3",
+      "music": "littletense.mp3",
       "next": "c1_s29"
     },
     "c1_s29": {
       "id": "c1_s29",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
+     "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
       "speaker": "Kunikida",
-      "text": "Pendant mon séjour à la Division Spéciale de Surveillance des Capacitaires, on m'a confié une affaire que la police n'arrive pas à boucler.",
+      "text": "Quand je suis allé à la Division Spéciale de Surveillance des Capacitaires, on m'a confié une affaire que la police n'arrive pas à boucler.",
       "pause": 700,
-      "music": null,
+        "music": "littletense.mp3",
       "next": "c1_s30"
     },
     "c1_s30": {
       "id": "c1_s30",
-      "background": "agency_office_morning.jpg",
+      "background": "salleprincipale.png",
       "character": "atsushi_casual.png",
       "speaker": "Atsushi",
       "text": "La police ?",
       "pause": 300,
-      "music": null,
+       "music": "littletense.mp3",
       "next": "c1_s31"
     },
     "c1_s31": {
       "id": "c1_s31",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
+      "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
       "speaker": "Kunikida",
       "text": "Plusieurs enquêteurs sont allés sur le terrain ces deux dernières semaines. Tous sont revenus… incomplets.",
       "pause": 600,
-      "music": null,
+      "music": "littletense.mp3",
       "next": "c1_s32"
     },
     "c1_s32": {
       "id": "c1_s32",
-      "background": "agency_office_morning.jpg",
-      "character": "dazai_casual.png",
+      "background": "salleprincipale.png",
+      "character": "dazaithink.png",
       "speaker": "Dazai",
-      "text": "Incomplets ? Ils ont perdu un bras ?",
+      "text": "Incomplets ? Ils ont perdu un bras ? une jambe ? ",
       "pause": 400,
-      "music": null,
+     "music": "littletense.mp3",
       "next": "c1_s33"
     },
     "c1_s33": {
       "id": "c1_s33",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
+     "background": "salleprincipale.png",
+      "character": "kunikidaworking.png",
       "speaker": "Kunikida",
       "text": "Leurs souvenirs. Ils ont perdu la mémoire des dernières heures de mission. Chaque fois. Proprement, comme effacée.",
       "pause": 700,
-      "music": null,
+      "music": "littletense.mp3",
       "next": "c1_s34"
     },
     "c1_s34": {
       "id": "c1_s34",
-      "background": "agency_office_morning.jpg",
+     "background": "salleprincipale.png",
       "character": "atsushi_casual.png",
       "speaker": "Atsushi",
       "text": "Perdu la mémoire ?",
       "pause": 300,
-      "music": null,
+       "music": "littletense.mp3",
       "next": "c1_s35"
     },
     "c1_s35": {
       "id": "c1_s35",
-      "background": "agency_office_morning.jpg",
-      "character": "ranpo_couch.png",
+    "background": "salleprincipale.png",
+      "character": "ranporead.png",
       "speaker": "Ranpo",
       "text": "Effacement ciblé. Pas d'amnésie générale. Juste la plage horaire précise de l'intervention.",
       "pause": 600,
-      "music": null,
+      "music": "littletense.mp3",
       "next": "c1_s36"
     },
     "c1_s36": {
       "id": "c1_s36",
-      "background": "agency_office_morning.jpg",
-      "character": "dazai_casual.png",
+     "background": "salleprincipale.png",
+      "character": "dazaithink.png",
       "speaker": "Dazai",
       "text": "Donc soit une amnésie collective provoquée par un gaz ou une substance, soit un Capacitaire. Je penche pour la deuxième.",
       "pause": 600,
-      "music": null,
+     "music": "littletense.mp3",
       "next": "c1_s37"
     },
     "c1_s37": {
       "id": "c1_s37",
-      "background": "agency_office_morning.jpg",
-      "character": "ranpo_couch.png",
+      "background": "salleprincipale.png",
+      "character": "ranposerious.png",
       "speaker": "Ranpo",
       "text": "Moi aussi.",
       "pause": 300,
-      "music": null,
+       "music": "littletense.mp3",
       "next": "c1_s38"
     },
     "c1_s38": {
       "id": "c1_s38",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
+      "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
       "speaker": "Kunikida",
       "text": "Le suspect s'appelle Kaito. Ancien archéologue égyptien. Je n'ai trouvé que très peu d'informations sur lui – tout est vague. Il serait venu au Japon pour retrouver quelque chose. Un artefact maudit, scellé par les autorités, qu'il a volé il y a dix jours.",
       "pause": 800,
-      "music": null,
+     "music": "littletense.mp3",
       "next": "c1_s39"
     },
     "c1_s39": {
       "id": "c1_s39",
-      "background": "agency_office_morning.jpg",
+      "background": "salleprincipale.png",
       "character": "atsushi_casual.png",
       "speaker": "Atsushi",
       "text": "Un artefact ? C'est quoi, exactement ?",
       "pause": 400,
-      "music": null,
+     "music": "littletense.mp3",
       "next": "c1_s40"
     },
     "c1_s40": {
       "id": "c1_s40",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
+     "background": "salleprincipale.png",
+      "character": "kunikidaworking.png",
       "speaker": "Kunikida",
       "text": "Les archives ne le décrivent pas. Ils disent seulement que c'est trop dangereux pour être dévoilé. D'après quelques recoupements, ce serait un livre.",
       "pause": 700,
-      "music": null,
+      "music": "littletense.mp3",
       "next": "c1_s41"
     },
+    
     "c1_s41": {
       "id": "c1_s41",
-      "background": "agency_office_morning.jpg",
-      "character": "dazai_casual.png",
-      "speaker": "Dazai",
-      "text": "Un livre qui efface la mémoire ?",
-      "pause": 400,
-      "music": null,
+     "background": "salleprincipale.png",
+      "character": "ranpothink.png",
+      "speaker": "Ranpo",
+      "text": "Si on attaque frontalement, on risque de perdre nos souvenirs nous aussi. Il va falloir un plan.",
+      "pause": 600,
+       "music": "littletense.mp3",
       "next": "c1_s42"
     },
-    "c1_s42": {
+
+     "c1_s42": {
       "id": "c1_s42",
-      "background": "agency_office_morning.jpg",
-      "character": "ranpo_couch.png",
-      "speaker": "Ranpo",
-      "text": "Non, Kaito lui-même a le pouvoir d'effacer la mémoire. C'est sa capacité naturelle. Le livre a un autre effet – mais on ignore lequel.",
-      "pause": 700,
-      "music": null,
-      "next": "c1_s43"
-    },
-    "c1_s43": {
-      "id": "c1_s43",
-      "background": "agency_office_morning.jpg",
+      "background": "salleprincipale.png",
       "character": "atsushi_casual.png",
       "speaker": "Atsushi",
-      "text": "Et quel est le rapport avec l'effacement des policiers ?",
-      "pause": 400,
-      "music": null,
-      "next": "c1_s44"
-    },
-    "c1_s44": {
-      "id": "c1_s44",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
-      "speaker": "Kunikida",
-      "text": "Chaque fois qu'ils s'approchaient de Kaito, il utilisait son pouvoir sur eux. Pour les empêcher de l'arrêter, ou de voir le livre.",
-      "pause": 600,
-      "music": null,
-      "next": "c1_s45"
-    },
-    "c1_s45": {
-      "id": "c1_s45",
-      "background": "agency_office_morning.jpg",
-      "character": "atsushi_casual.png",
-      "speaker": "Atsushi",
-      "text": "Pourquoi est-ce qu'on ne l'a pas encore arrêté, alors ?",
-      "pause": 400,
-      "music": null,
-      "next": "c1_s46"
-    },
-    "c1_s46": {
-      "id": "c1_s46",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
-      "speaker": "Kunikida",
-      "text": "Parce qu'on ignore le mécanisme exact de son pouvoir. Distance, durée, conditions… Tout est flou. Si on attaque frontalement, on risque de perdre nos souvenirs nous aussi.",
-      "pause": 800,
-      "music": null,
-      "next": "c1_s47"
-    },
-    "c1_s47": {
-      "id": "c1_s47",
-      "background": "agency_office_morning.jpg",
-      "character": "dazai_casual.png",
-      "speaker": "Dazai",
-      "text": "Il va falloir un plan.",
-      "pause": 400,
-      "music": null,
-      "next": "c1_s48"
-    },
-    "c1_s48": {
-      "id": "c1_s48",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
-      "speaker": "Kunikida",
-      "text": "Voilà. On ignore comment il active son pouvoir. Donc on ne prend aucun risque. Dazai et moi ferons diversion par la porte principale. Ranpo couvre la sortie arrière. Et toi, Nakajima…",
-      "pause": 700,
-      "music": null,
-      "next": "c1_s49"
-    },
-    "c1_s49": {
-      "id": "c1_s49",
-      "background": "agency_office_morning.jpg",
-      "character": null,
-      "speaker": null,
-      "text": "Il désigne un emplacement derrière des caisses.",
-      "pause": 400,
-      "music": null,
-      "next": "c1_s50"
-    },
-    "c1_s50": {
-      "id": "c1_s50",
-      "background": "agency_office_morning.jpg",
-      "character": "kunikida_working.png",
-      "speaker": "Kunikida",
-      "text": "Tu te caches ici. Tu observes. Si Kaito nous neutralise, tu fuis avec les informations. Mais surtout, profite de ta cachette pour l'écouter. Apprends tout ce que tu peux sur le livre – son pouvoir, son origine.",
-      "pause": 800,
-      "music": null,
-      "next": "c1_s51"
-    },
-    "c1_s51": {
-      "id": "c1_s51",
-      "background": "agency_office_morning.jpg",
-      "character": "atsushi_casual.png",
-      "speaker": "Atsushi",
-      "text": "D'accord. Je l'écouterai. Et si l'occasion se présente, je tenterai quelque chose.",
-      "pause": 600,
-      "music": null,
-      "next": "c1_s52"
-    },
-    "c1_s52": {
-      "id": "c1_s52",
-      "background": "agency_office_morning.jpg",
-      "character": "dazai_casual.png",
-      "speaker": "Dazai",
-      "text": "Prudence, petit tigre. Ne joue pas les héros avant l'heure.",
+      "text": "Je vais faire quelque chose. Mais qu'est-ce qui serait le mieux ?",
       "pause": 500,
-      "music": null,
-      "next": "c1_s53"
-    },
-    "c1_s53": {
-      "id": "c1_s53",
-      "background": "agency_office_morning.jpg",
-      "character": "ranpo_couch.png",
-      "speaker": "Ranpo",
-      "text": "Si tu peux toucher le livre sans te faire effacer la mémoire, ce serait un bon début. Mais bon, on verra.",
-      "pause": 600,
-      "music": null,
-      "next": "c1_s54"
-    },
-    "c1_s54": {
-      "id": "c1_s54",
-      "background": "agency_office_morning.jpg",
-      "character": "atsushi_casual.png",
-      "speaker": null,
-      "text": "CHOIX 2 (après le plan, en préparant l'équipement) :",
-      "pause": 400,
-      "music": null,
+      "music": "littletense.mp3",
       "choices": [
         {
-          "label": "Je vais vérifier mon talkie et mes bandages.",
-          "next_scene": "c1_s55_neutre"
+          "label": "Je me cache et je le prends par surprise.",
+          "next_scene": "c1_s43_option1"
         },
         {
-          "label": "Je vais demander un conseil à Dazai.",
-          "affection_target": "dazai",
-          "affection_delta": 1,
-          "next_scene": "c1_s55_dazai"
+          "label": "Je prends le livre directement.",
+          "next_scene": "c1_s43_option2"
         },
         {
-          "label": "Je vais noter tout ce que Kunikida a dit dans mon carnet.",
-          "affection_target": "kunikida",
-          "affection_delta": 1,
-          "next_scene": "c1_s55_kunikida"
+          "label": "Je ne fais rien pour l'instant, je suis le plan.",
+          "next_scene": "c1_s43_option3"
         }
       ]
     },
-    "c1_s55_neutre": {
-      "id": "c1_s55_neutre",
-      "background": "agency_office_morning.jpg",
+    "c1_s43_option1": {
+      "id": "c1_s43_option1",
+      "background": "salleprincipale.png",
       "character": "atsushi_casual.png",
       "speaker": "Atsushi",
-      "text": "Je vais vérifier mon talkie et mes bandages.",
+      "text": "Si je me cache assez près, je peux le prendre par surprise quand il sera concentré sur vous.",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s44_option1"
+    },
+    "c1_s44_option1": {
+      "id": "c1_s44_option1",
+      "background": "salleprincipale.png",
+      "character": "dazaithink.png",
+      "speaker": "Dazai",
+      "text": "Normalement, ce serait moi qui devrais me cacher pour annuler son pouvoir… mais tu es plus rapide, Atsushi-kun. Bien. On fait comme ça.",
+      "pause": 700,
+      "music": "littletense.mp3",
+      "next": "c1_s45_option1"
+    },
+    "c1_s45_option1": {
+      "id": "c1_s45_option1",
+      "background": "salleprincipale.png",
+      "character": "ranpoglasses.png",
+      "speaker": "Ranpo",
+      "text": "Atsushi est effectivement plus rapide que toi, Dazai. Bonne idée. Mais ne prends pas de risques inutiles.",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s46_option1"
+    },
+    "c1_s46_option1": {
+      "id": "c1_s46_option1",
+      "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
+      "speaker": "Kunikida",
+      "text": "D'accord. Alors Atsushi se cache, Dazai et moi faisons diversion. Ranpo, tu couvres la sortie arrière.",
+      "pause": 700,
+      "music": "littletense.mp3",
+      "next": "c1_s47_option1"
+    },
+    "c1_s47_option1": {
+      "id": "c1_s47_option1",
+      "background": "salleprincipale.png",
+      "character": "ranposerious.png",
+      "speaker": "Ranpo",
+      "text": "Compris. Tout le monde sait ce qu'il a à faire.",
       "pause": 400,
-      "music": null,
+      "music": "littletense.mp3",
+      "next": "c1_s55"
+    },
+    "c1_s43_option2": {
+      "id": "c1_s43_option2",
+      "background": "salleprincipale.png",
+      "character": "atsushi_casual.png",
+      "speaker": "Atsushi",
+      "text": "Et si je prends le livre directement, pendant que vous faites diversion ?",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s44_option2"
+    },
+    "c1_s44_option2": {
+      "id": "c1_s44_option2",
+      "background": "salleprincipale.png",
+      "character": "kunikidaworking.png",
+      "speaker": "Kunikida",
+      "text": "C'est risqué, Nakajima. Mais je reconnais ton courage. Si tu te sens capable… vas-y.",
+      "pause": 700,
+      "music": "littletense.mp3",
+      "next": "c1_s45_option2"
+    },
+    "c1_s45_option2": {
+      "id": "c1_s45_option2",
+      "background": "salleprincipale.png",
+      "character": "dazaicasual1.png",
+      "speaker": "Dazai",
+      "text": "Nous ferons diversion pour te laisser le passage.",
+      "pause": 700,
+      "music": "littletense.mp3",
+      "next": "c1_s46_option2"
+    },
+    "c1_s46_option2": {
+      "id": "c1_s46_option2",
+      "background": "salleprincipale.png",
+      "character": "ranpoglasses.png",
+      "speaker": "Ranpo",
+      "text": "Et moi, je couvre la sortie arrière.",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s47_option2"
+    },
+    "c1_s47_option2": {
+      "id": "c1_s47_option2",
+      "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
+      "speaker": "Kunikida",
+      "text": "Alors c'est décidé. Atsushi attaque, on fait diversion. Restez concentrés.",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s55"
+    },
+    "c1_s43_option3": {
+      "id": "c1_s43_option3",
+      "background": "salleprincipale.png",
+      "character": "atsushi_casual.png",
+      "speaker": null,
+      "text": "Je préfère ne rien tenter pour l'instant",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s44_option3"
+    },
+    "c1_s44_option3": {
+      "id": "c1_s44_option3",
+      "background": "salleprincipale.png",
+      "character": "dazaicasual1.png",
+      "speaker": "Dazai",
+      "text": "Je propose que l'un d'entre nous se cache pour éviter qu'on perde tous notre mémoire dans le pire des cas.",
+      "pause": 600,
+      "music": "littletense.mp3",
+      "next": "c1_s45_option3"
+    },
+    "c1_s45_option3": {
+      "id": "c1_s45_option3",
+      "background": "salleprincipale.png",
+      "character": "kunikidaglasses.png",
+      "speaker": "Kunikida",
+      "text": "Atsushi pourra faire l'affaire avec sa rapidité grâce à son habileté de tigre. Dazai et moi ferons diversion.",
+      "pause": 700,
+      "music": "littletense.mp3",
+      "next": "c1_s46_option3"
+    },
+    "c1_s46_option3": {
+      "id": "c1_s46_option3",
+      "background": "salleprincipale.png",
+      "character": "ranposerious.png",
+      "speaker": "Ranpo",
+      "text": "Je reste à l'arrière. Personne ne sort par là.",
+      "pause": 500,
+      "music": "littletense.mp3",
+      "next": "c1_s55"
+    },
+    "c1_s55": {
+      "id": "c1_s55",
+      "background": "salleprincipale.png",
+      "character": null,
+      "speaker": null,
+      "text": "L'équipe se lève et nous rejoignons le reste de l'équipe qui préparait déjà la voiture.",
+      "pause": 600,
+      "music": "littletense.mp3",
       "next": "c1_s56"
     },
-    "c1_s55_dazai": {
+    "c1_s5_dazai": {
       "id": "c1_s55_dazai",
       "background": "agency_office_morning.jpg",
       "character": "dazai_casual.png",
