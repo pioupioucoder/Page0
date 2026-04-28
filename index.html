@@ -4,7 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bungou Stray Dogs - Page 0</title>
- <script src="js/global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+    window.gMute = (typeof window.gMute !== 'undefined') ? window.gMute : false;
+    window.gVol  = (typeof window.gVol !== 'undefined') ? window.gVol : 0.5;
+  </script>
+
+  <!-- Chargement de global.js (il pourra écraser gMute/gVol) -->
+  <script src="js/global.js"></script>
+
+  <!-- Petite sécurité : après global.js, on rafraîchit les variables -->
+  <script>
+    // Si global.js a défini des fonctions pour récupérer l'état, on les utilise
+    if (typeof getGlobalMuted !== 'undefined') {
+      window.gMute = getGlobalMuted();
+      window.gVol = getGlobalVolume();
+    }
+  </script>
   <!-- ========================================== -->
   
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
